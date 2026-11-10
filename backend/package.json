@@ -7,7 +7,7 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "start": "node backend/app",
+    "start": "node server.js",
     "server": "nodemon --env-file=.env app.js",
     "client": "npm start --prefix frontend",
     "dev": "nodemon --env-file=.env app.js"

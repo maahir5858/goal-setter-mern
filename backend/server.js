@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const mongoose = require("mongoose");
 
 const { logger } = require("./middlewares/logger");
@@ -18,6 +19,20 @@ app.use("/api/goals", goalRouter);
 app.use("/api/users", userRouter);
 app.use(notFound);
 app.use(error);
+
+
+// Serve React frontend
+app.use(express.static(
+  path.join(__dirname, "../frontend/dist")
+));
+
+// React client-side routing fallback
+app.get(/.*/, (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "../frontend/dist/index.html")
+  );
+});
+
 
 mongoose.connect(process.env.MONGOOSE_URI).then(() => {
     app.listen(PORT, () => {
